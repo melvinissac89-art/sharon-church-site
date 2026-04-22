@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sharon Fellowship Church Website
 
-## Getting Started
+A premium, production-ready website with Decap CMS integration.
 
-First, run the development server:
+## CMS Setup (Netlify Identity & Git Gateway)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+To manage content for the Vercel-hosted site, follow these mandatory steps to enable authentication:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Connect to Netlify
+- Go to [app.netlify.com](https://app.netlify.com).
+- Click **"Add new site"** → **"Import an existing project"**.
+- Connect to the GitHub repo: `melvinissac89-art/sharon-church-site`.
+- Deploy the site (the URL doesn't need to be public, it's only for the auth backend).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Enable Identity
+- Go to your site dashboard on Netlify.
+- Go to **Site settings** → **Identity**.
+- Click **Enable Identity**.
+- Set **Registration preference** to **Invite only** (highly recommended).
+- Set **External providers** (optional, e.g., Google/GitHub).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Enable Git Gateway
+- In the same **Identity** tab, scroll down to **Services** → **Git Gateway**.
+- Click **Enable Git Gateway**.
+- Connect your GitHub account.
 
-## Learn More
+### 4. Invite Admin
+- Go to the **Identity** tab (main menu).
+- Click **Invite users** and enter the pastor's email.
+- They will receive an invitation to create a password.
 
-To learn more about Next.js, take a look at the following resources:
+### 5. Access CMS
+- Visit `https://your-vercel-domain.com/admin` (or `localhost:3000/admin`).
+- Log in using the email and password set up in Step 4.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technical Details
+- **Frontend**: Next.js (App Router)
+- **CMS**: Decap CMS (static integration)
+- **Auth**: Netlify Identity + Git Gateway
+- **Deployment**: Vercel
