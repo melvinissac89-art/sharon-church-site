@@ -26,7 +26,9 @@ export default function Navbar({ liveUrl = "/#livestream" }: { liveUrl?: string 
     { name: "Contact", href: "/contact" },
   ]
 
-  const isExternal = liveUrl.startsWith("http")
+  const isPlaceholder = liveUrl.includes("placeholder")
+  const activeLiveUrl = isPlaceholder ? "/#livestream" : liveUrl
+  const isExternal = activeLiveUrl.startsWith("http")
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass py-3 shadow-xl' : 'bg-transparent py-6'}`}>
@@ -55,7 +57,7 @@ export default function Navbar({ liveUrl = "/#livestream" }: { liveUrl?: string 
           ))}
           
           <div className="flex items-center space-x-4 pl-8 border-l border-muted/10">
-            <Link href={liveUrl} target={isExternal ? "_blank" : undefined}>
+            <Link href={activeLiveUrl} target={isExternal ? "_blank" : undefined}>
               <Button variant="primary" size="sm" className="h-10 px-8 rounded-xl font-bold shadow-lg shadow-primary/20 animate-pulse-slow uppercase tracking-widest text-xs">
                 Watch Live
               </Button>
@@ -98,7 +100,7 @@ export default function Navbar({ liveUrl = "/#livestream" }: { liveUrl?: string 
                 </motion.div>
               ))}
               <div className="w-full pt-8 border-t border-muted/10 flex flex-col gap-4">
-                <Link href={liveUrl} onClick={() => setIsOpen(false)} className="w-full" target={isExternal ? "_blank" : undefined}>
+                <Link href={activeLiveUrl} onClick={() => setIsOpen(false)} className="w-full" target={isExternal ? "_blank" : undefined}>
                   <Button variant="primary" className="w-full h-14 rounded-2xl font-bold shadow-lg shadow-primary/20 uppercase tracking-widest">Watch Live</Button>
                 </Link>
               </div>
