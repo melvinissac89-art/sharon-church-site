@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex flex-col">
       <AnnouncementBar text={announcementContent?.text} />
-      <Navbar />
+      <Navbar liveUrl={liveContent?.youtube_link} />
       
       <div className="flex-grow">
         <Hero 
