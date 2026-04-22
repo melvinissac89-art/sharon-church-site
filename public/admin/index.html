@@ -14,14 +14,22 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <script>
+      const NETLIFY_SITE_URL = "https://sharon-church-site.netlify.app";
+
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function(user) {
+        // Force the widget to point to your Netlify instance
+        window.netlifyIdentity.on("init", (user) => {
           if (!user) {
-            window.netlifyIdentity.on("login", function() {
+            window.netlifyIdentity.on("login", () => {
               document.location.href = "/admin/";
             });
           }
         });
+
+        // Set the Netlify site URL for the widget
+        if (document.location.hostname !== "localhost") {
+          localStorage.setItem("netlifySiteURL", NETLIFY_SITE_URL);
+        }
       }
     </script>
 
