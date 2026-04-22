@@ -47,6 +47,7 @@ export default function HomePage() {
           <LiveStream 
             isLive={liveContent?.is_live} 
             url={liveContent?.youtube_link} 
+            facebookUrl={liveContent?.facebook_link}
             latestSermon={latestSermon}
           />
         </div>

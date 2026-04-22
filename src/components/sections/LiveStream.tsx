@@ -7,6 +7,7 @@ import { ExternalLink } from "lucide-react"
 interface LiveStreamProps {
   isLive?: boolean
   url?: string
+  facebookUrl?: string
   latestSermon?: {
     title: string
     youtube_link: string
@@ -15,7 +16,27 @@ interface LiveStreamProps {
   }
 }
 
-export default function LiveStream({ isLive = false, url = "", latestSermon }: LiveStreamProps) {
+const getEmbedUrl = (url: string) => {
+  if (!url) return ""
+  
+  // YouTube Detection and Conversion
+  const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i
+  const ytMatch = url.match(ytRegex)
+  if (ytMatch && ytMatch[1]) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}`
+  }
+
+  // Facebook Detection and Conversion
+  if (url.includes("facebook.com")) {
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=0`
+  }
+
+  return url
+}
+
+export default function LiveStream({ isLive = false, url = "", facebookUrl = "", latestSermon }: LiveStreamProps) {
+  const embedUrl = getEmbedUrl(url || facebookUrl)
+
   return (
     <section id="livestream" className="section-padding bg-surface border-y border-muted/5 scroll-mt-24">
       <div className="container mx-auto">
@@ -24,7 +45,7 @@ export default function LiveStream({ isLive = false, url = "", latestSermon }: L
             {isLive ? (
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl aspect-video bg-black group">
                 <iframe
-                  src={url ? url.replace("watch?v=", "embed/") : "https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID"}
+                  src={embedUrl || (url ? url.replace("watch?v=", "embed/") : "https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID")}
                   className="absolute inset-0 w-full h-full"
                   allowFullScreen
                   title="Live Stream"
@@ -52,7 +73,7 @@ export default function LiveStream({ isLive = false, url = "", latestSermon }: L
                   <p className="text-white/60 font-medium">with {latestSermon.speaker}</p>
                 </div>
                 <iframe
-                  src={latestSermon.youtube_link.replace("watch?v=", "embed/")}
+                  src={getEmbedUrl(latestSermon.youtube_link)}
                   className="absolute inset-0 w-full h-full opacity-0 group-active:opacity-100 focus:opacity-100 transition-opacity"
                   allowFullScreen
                   title={latestSermon.title}
@@ -82,14 +103,18 @@ export default function LiveStream({ isLive = false, url = "", latestSermon }: L
             </p>
             
             <div className="space-y-4">
-              <Button variant="primary" className="w-full h-14 gap-3 bg-[#1877F2] hover:bg-[#1877F2]/90 border-none">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Watch on Facebook Live
-              </Button>
-              <Button variant="outline" className="w-full h-14 gap-3">
-                <Youtube className="w-5 h-5 text-red-600" />
-                Subscribe on YouTube
-              </Button>
+              <Link href={facebookUrl || "https://facebook.com"} target="_blank">
+                <Button variant="primary" className="w-full h-14 gap-3 bg-[#1877F2] hover:bg-[#1877F2]/90 border-none">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  Watch on Facebook Live
+                </Button>
+              </Link>
+              <Link href={url || "https://youtube.com"} target="_blank">
+                <Button variant="outline" className="w-full h-14 gap-3">
+                  <Youtube className="w-5 h-5 text-red-600" />
+                  Subscribe on YouTube
+                </Button>
+              </Link>
             </div>
             
             <p className="mt-8 text-sm text-muted italic flex items-center gap-2 justify-center lg:justify-start">
