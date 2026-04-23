@@ -17,7 +17,12 @@ const weekdayMeetings = [
   { name: "Morning Prayer", day: "Daily", time: "05:00 AM" },
 ]
 
-export default function ServiceTimes() {
+interface ServiceTimesProps {
+  sunday?: any
+  weekday?: any
+}
+
+export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
   return (
     <section id="services" className="py-24 bg-transparent relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
