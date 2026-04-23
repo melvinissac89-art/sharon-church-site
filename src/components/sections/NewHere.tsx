@@ -1,71 +1,66 @@
+"use client"
+
 import { Button } from "@/components/ui/Button"
 import Image from "next/image"
 import { CheckCircle2 } from "lucide-react"
+import { motion } from "framer-motion"
 
 export default function NewHere() {
   return (
     <section className="section-padding bg-surface overflow-hidden">
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
+      <div className="container mx-auto px-6">
+        {/* Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <span className="inline-block px-3 py-1 mb-6 text-xs font-black tracking-[0.2em] text-[#b4136d] uppercase bg-[#b4136d]/5 rounded-full">
+            First Time Visiting?
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-rose-500 bg-clip-text text-transparent pb-4">
+            Welcome Home. We&apos;ve Been Waiting for <span className="bg-gradient-to-r from-red-600 to-rose-400 bg-clip-text text-transparent">You.</span>
+          </h2>
+        </motion.div>
+
+        <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-32">
           <div className="w-full lg:w-1/2 relative">
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
               <Image 
-                src="https://images.unsplash.com/photo-1543191879-16987f73db13?q=80&w=2070&auto=format&fit=crop" 
+                src="/sharon-church-site/images/gallery/moment2.jpg" 
                 alt="Worship Culture" 
-                width={800} 
-                height={1000}
-                className="hover:scale-105 transition-transform duration-700"
+                fill
+                className="object-cover hover:scale-110 transition-transform duration-1000"
               />
             </div>
-            {/* Decoraive elements */}
+            {/* Decorative elements */}
             <div className="absolute -top-12 -left-12 w-48 h-48 bg-accent/10 rounded-full blur-[60px] z-0" />
             <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-[80px] z-0" />
-            
-            <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-2xl shadow-xl z-20 hidden md:block">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
-                  <CheckCircle2 className="w-6 h-6 text-accent" />
-                </div>
-                <div>
-                  <h4 className="font-bold">Next Steps</h4>
-                  <p className="text-xs text-muted">Join our community today</p>
-                </div>
-              </div>
-              <p className="text-sm font-medium">100+ new members joined this month</p>
-            </div>
           </div>
 
-          <div className="w-full lg:w-1/2">
-            <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-primary uppercase">
-              First Time Visiting?
-            </span>
-            <h2 className="mb-8 font-serif">Welcome Home. We&apos;ve Been Waiting for You.</h2>
-            <p className="text-muted text-lg mb-10 leading-relaxed">
-              Stepping into a new church can be intimidating. We want to make your first visit as smooth and welcoming as possible. Here, you aren&apos;t just a visitor—you&apos;re family.
+          <div className="w-full lg:w-1/2 pt-4 max-w-[650px]">
+            <p className="text-muted/70 text-2xl mb-8 leading-relaxed font-manrope font-medium">
+              You are not here by accident. The Lord has brought you, and you are welcome in His presence.
             </p>
             
-            <ul className="space-y-6 mb-12">
-              {[
-                { title: "Plan Your Visit", desc: "Let us know you're coming so we can welcome you personally." },
-                { title: "Casual Atmosphere", desc: "Come as you are. We're more interested in you than what you're wearing." },
-                { title: "Engaging Worship", desc: "Experience modern worship and practical teaching that applies to your life." }
-              ].map((item, idx) => (
-                <li key={idx} className="flex gap-4">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold mt-1">
-                    {idx + 1}
-                  </span>
-                  <div>
-                    <h4 className="font-bold mb-1">{item.title}</h4>
-                    <p className="text-muted text-sm">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="flex flex-wrap gap-6 font-serif">
-              <Button size="lg">I&apos;m New Here</Button>
-              <Button variant="ghost" size="lg">Learn About Our Beliefs</Button>
+            <p className="text-muted/70 text-2xl mb-12 leading-relaxed font-manrope font-medium">
+              Whether you are seeking, returning, or simply curious, there is a place for you here. We are a family gathered in Christ, growing in truth, love, and grace.
+            </p>
+
+            <div className="mb-12 pl-8 border-l-4 border-primary/20">
+              <p className="text-xl text-muted/50 italic font-medium leading-relaxed mb-4">
+                &ldquo;Therefore welcome one another, just as Christ also welcomed us, to the glory of God.&rdquo;
+              </p>
+              <p className="text-sm font-black tracking-widest text-[#b4136d] uppercase">
+                Romans 15:7 (LSB)
+              </p>
             </div>
+
+            <p className="text-2xl font-black text-text/80 leading-relaxed uppercase tracking-tight">
+              Come as you are, and encounter the living God among His people.
+            </p>
           </div>
         </div>
       </div>

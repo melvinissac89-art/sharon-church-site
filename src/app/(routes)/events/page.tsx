@@ -22,7 +22,7 @@ export default function EventsPage() {
             <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-accent uppercase">
               Join the Family
             </span>
-            <h1 className="mb-6 font-serif">Upcoming Events</h1>
+            <h1 className="mb-6">Upcoming Events</h1>
             <p className="text-muted text-lg">Stay connected with our community through life-giving events, services, and gatherings for all ages.</p>
           </div>
           

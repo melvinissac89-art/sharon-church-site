@@ -10,7 +10,7 @@ export default function Contact() {
             <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-accent uppercase">
               Visit Us
             </span>
-            <h2 className="mb-8 font-serif">Get in Touch</h2>
+            <h2 className="mb-8">Get in Touch</h2>
             <p className="text-muted text-lg mb-12 leading-relaxed">
               Have questions about our services, ministries, or how to get involved? We&apos;re here to help. Reach out to us via phone, email, or visit our office.
             </p>

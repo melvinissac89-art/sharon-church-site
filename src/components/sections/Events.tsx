@@ -34,7 +34,7 @@ export default function Events({ events = [] }: { events?: any[] }) {
               <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-primary uppercase bg-white rounded-full shadow-sm px-4">
                 Mark Your Calendar
               </span>
-              <h2 className="font-serif tracking-tight text-3xl md:text-4xl lg:text-5xl">Upcoming Events</h2>
+              <h2 className="tracking-tight text-3xl md:text-4xl lg:text-5xl">Upcoming Events</h2>
             </motion.div>
           </div>
           <Link href="/events">
@@ -71,7 +71,7 @@ export default function Events({ events = [] }: { events?: any[] }) {
                   </div>
                 </div>
                 <div className="p-10 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-serif font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{event.title}</h3>
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{event.title}</h3>
                   <div className="flex items-center gap-2 text-muted text-sm mb-6 font-bold uppercase tracking-widest">
                     <MapPin className="w-4 h-4 text-primary" />
                     <span>{event.location}</span>

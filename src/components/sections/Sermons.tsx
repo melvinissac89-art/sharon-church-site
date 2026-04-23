@@ -33,7 +33,7 @@ export default function Sermons({ sermons = [] }: { sermons?: any[] }) {
               <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-primary uppercase bg-primary/5 rounded-full">
                 Sermon Archive
               </span>
-              <h2 className="font-serif tracking-tight text-3xl md:text-4xl lg:text-5xl">Recent Messages</h2>
+              <h2 className="tracking-tight text-3xl md:text-4xl lg:text-5xl">Recent Messages</h2>
             </motion.div>
           </div>
           <Link href="/sermons">
@@ -70,7 +70,7 @@ export default function Sermons({ sermons = [] }: { sermons?: any[] }) {
                 </div>
               </div>
               <div className="px-2">
-                <h3 className="text-2xl font-serif font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{sermon.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{sermon.title}</h3>
                 <div className="flex items-center justify-between text-muted text-sm font-bold uppercase tracking-widest">
                   <span>{sermon.speaker}</span>
                   <span className="opacity-50">{new Date(sermon.date).toLocaleDateString()}</span>

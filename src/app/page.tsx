@@ -1,10 +1,9 @@
 import { getCollection, getItem } from "@/lib/markdown"
-import AnnouncementBar from "@/components/layout/AnnouncementBar"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import Hero from "@/components/sections/Hero"
 import LiveStream from "@/components/sections/LiveStream"
-import QuickActions from "@/components/sections/QuickActions"
+import PhotoReel from "@/components/sections/PhotoReel"
 import NewHere from "@/components/sections/NewHere"
 import About from "@/components/sections/About"
 import Pastor from "@/components/sections/Pastor"
@@ -33,7 +32,6 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <AnnouncementBar text={announcementContent?.text} />
       <Navbar liveUrl={liveContent?.youtube_link} />
       
       <div className="flex-grow">
@@ -42,6 +40,13 @@ export default function HomePage() {
           subtitle={homeContent?.heroSubtitle} 
         />
         
+        <NewHere />
+
+        <ServiceTimes 
+          sunday={serviceContent?.sunday} 
+          weekday={serviceContent?.weekday} 
+        />
+
         <div id="livestream">
           <LiveStream 
             isLive={liveContent?.is_live} 
@@ -51,8 +56,7 @@ export default function HomePage() {
           />
         </div>
         
-        <QuickActions />
-        <NewHere />
+        <PhotoReel />
         
         <About 
           mission={aboutContent?.mission} 
@@ -66,11 +70,6 @@ export default function HomePage() {
         />
         
         <Sermons sermons={sermons} />
-        
-        <ServiceTimes 
-          sunday={serviceContent?.sunday} 
-          weekday={serviceContent?.weekday} 
-        />
         
         <Events events={events} />
         

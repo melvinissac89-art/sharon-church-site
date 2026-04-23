@@ -27,7 +27,7 @@ export default function MinistriesPage() {
           <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-primary uppercase">
             Serve & Grow
           </span>
-          <h1 className="mb-6 font-serif">Our Ministries</h1>
+          <h1 className="mb-6">Our Ministries</h1>
           <p className="text-muted text-lg">Every member has a gift, and every gift has a place. Discover how you can grow spiritually and serve others through our diverse ministry areas.</p>
         </div>
 
@@ -37,7 +37,7 @@ export default function MinistriesPage() {
               <div className="w-20 h-20 rounded-3xl bg-primary/5 text-primary flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all transform group-hover:rotate-6">
                 <group.icon className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-serif font-bold mb-4">{group.name}</h3>
+              <h3 className="text-2xl font-bold mb-4">{group.name}</h3>
               <p className="text-muted leading-relaxed mb-8">
                 {group.desc}
               </p>

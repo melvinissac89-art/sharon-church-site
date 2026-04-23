@@ -43,7 +43,7 @@ export default function Ministries({ ministries = [] }: { ministries?: any[] }) 
             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-primary uppercase bg-white rounded-full shadow-sm">
               Our Ministries
             </span>
-            <h2 className="mb-6 font-serif text-3xl md:text-4xl lg:text-5xl tracking-tight">A Place for Everyone to Serve</h2>
+            <h2 className="mb-6 text-3xl md:text-4xl lg:text-5xl tracking-tight">A Place for Everyone to Serve</h2>
             <p className="text-muted leading-relaxed text-xl">
               Whether you&apos;re a child, a student, or a professional, we have a community where you can grow, serve, and find your purpose.
             </p>
@@ -65,7 +65,7 @@ export default function Ministries({ ministries = [] }: { ministries?: any[] }) 
                   <div className="w-16 h-16 rounded-2xl bg-primary/5 text-primary flex items-center justify-center mb-10 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
                     <Icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{group.title}</h3>
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{group.title}</h3>
                   <p className="text-muted leading-relaxed mb-10 flex-grow text-lg">
                     {group.description}
                   </p>

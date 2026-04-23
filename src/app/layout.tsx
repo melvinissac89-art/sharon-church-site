@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
+import FluidBackground from "@/components/ui/FluidBackground";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,6 +10,11 @@ const inter = Inter({
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
+  subsets: ["latin"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -32,10 +38,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playfair.variable} h-full antialiased`}
+      className={`${inter.variable} ${playfair.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="font-sans text-text bg-background min-h-screen">
-        {children}
+      <body className="font-manrope text-text bg-background min-h-screen overflow-x-hidden">
+        <FluidBackground />
+        <div style={{ 
+          transform: 'scale(0.93)', 
+          transformOrigin: 'top center',
+          width: '107.52%',
+          marginLeft: '-3.76%'
+        }}>
+          {children}
+        </div>
       </body>
     </html>
   );

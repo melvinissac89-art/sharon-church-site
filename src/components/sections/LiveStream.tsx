@@ -1,8 +1,10 @@
 "use client"
+
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/Button"
 import { Youtube } from "@/components/ui/SocialIcons"
-import { ExternalLink } from "lucide-react"
+import { Play, Calendar, Clock, ArrowRight, VideoOff } from "lucide-react"
 
 interface LiveStreamProps {
   isLive?: boolean
@@ -13,24 +15,17 @@ interface LiveStreamProps {
     youtube_link: string
     thumbnail: string
     speaker: string
+    date?: string
+    duration?: string
   }
 }
 
 const getEmbedUrl = (url: string) => {
   if (!url) return ""
-  
-  // YouTube Detection and Conversion
   const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i
   const ytMatch = url.match(ytRegex)
-  if (ytMatch && ytMatch[1]) {
-    return `https://www.youtube.com/embed/${ytMatch[1]}`
-  }
-
-  // Facebook Detection and Conversion
-  if (url.includes("facebook.com")) {
-    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=0`
-  }
-
+  if (ytMatch && ytMatch[1]) return `https://www.youtube.com/embed/${ytMatch[1]}`
+  if (url.includes("facebook.com")) return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=0`
   return url
 }
 
@@ -38,91 +33,155 @@ export default function LiveStream({ isLive = false, url = "", facebookUrl = "",
   const embedUrl = getEmbedUrl(url || facebookUrl)
 
   return (
-    <section id="livestream" className="section-padding bg-surface border-y border-muted/5 scroll-mt-24">
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
-          <div className="w-full lg:w-2/3">
+    <section id="livestream" className="py-24 bg-transparent scroll-mt-24">
+      <div className="container mx-auto px-6">
+        
+        {/* Live Hero Section */}
+        <div className="flex flex-col items-center text-center space-y-8 mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            <span className="inline-block px-4 py-1.5 bg-primary/5 text-primary text-xs font-black tracking-[0.2em] uppercase rounded-full">
+              Worship Live
+            </span>
+            <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-orange-400 bg-clip-text text-transparent pb-3">
+              Sunday Worship Live
+            </h2>
+            <p className="text-xl text-muted/60 max-w-2xl mx-auto font-manrope font-medium leading-relaxed">
+              Join our vibrant community for an uplifting service of worship, teaching, and fellowship. Every Sunday morning.
+            </p>
+          </motion.div>
+ 
+          {/* Video Player Area */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="w-full max-w-4xl aspect-video bg-white/40 backdrop-blur-3xl rounded-[3rem] overflow-hidden relative shadow-[0_32px_64px_-16px_rgba(70,72,212,0.15)] border border-white/50 group"
+          >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-orange-400 z-10" />
+            
             {isLive ? (
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl aspect-video bg-black group">
-                <iframe
-                  src={embedUrl || (url ? url.replace("watch?v=", "embed/") : "https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID")}
-                  className="absolute inset-0 w-full h-full"
-                  allowFullScreen
-                  title="Live Stream"
+              <iframe
+                src={embedUrl}
+                className="absolute inset-0 w-full h-full"
+                allowFullScreen
+                title="Live Stream"
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-12">
+                <div className="w-24 h-24 rounded-full bg-white/50 backdrop-blur-xl flex items-center justify-center mb-8 shadow-xl border border-white">
+                  <VideoOff className="w-10 h-10 text-muted/30" />
+                </div>
+                <h3 className="text-3xl font-black text-text mb-4">Currently Offline</h3>
+                <div className="flex items-center gap-2 px-6 py-3 bg-primary/5 rounded-full border border-primary/10">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-sm font-black tracking-widest text-primary uppercase">Next Live: Sunday 10:00 AM</span>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        </div>
+
+        {/* Sermon Archive Bento Grid */}
+        <div className="space-y-12">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-muted/10 pb-8">
+            <div className="space-y-2">
+              <h3 className="text-4xl font-black text-text">Sermon Archive</h3>
+              <p className="text-muted/60 font-manrope font-medium text-lg">Catch up on recent messages and teaching series.</p>
+            </div>
+            <Link href="/sermons">
+              <button className="flex items-center gap-2 text-xs font-black tracking-[0.2em] text-primary uppercase hover:gap-4 transition-all group">
+                View All Archives
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Featured Sermon (Large Card) */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-8 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row group border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
+            >
+              <div className="md:w-1/2 min-h-[300px] relative overflow-hidden bg-primary/5">
+                <img 
+                  src={latestSermon?.thumbnail || "https://images.unsplash.com/photo-1438032005730-c77930514931?auto=format&fit=crop&q=80&w=800"} 
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+                  alt={latestSermon?.title}
                 />
-                <div className="absolute top-8 left-8 flex items-center gap-3">
-                  <span className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-xs font-bold rounded-xl animate-pulse shadow-lg">
-                    <span className="w-2 h-2 bg-white rounded-full" />
-                    LIVE NOW
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl border border-white/30">
+                    <Play className="w-8 h-8 text-white fill-current translate-x-1" />
+                  </div>
+                </div>
+              </div>
+              <div className="md:w-1/2 p-10 md:p-12 flex flex-col justify-center">
+                <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-[10px] font-black tracking-widest uppercase rounded-full self-start mb-6">
+                  Latest Message
+                </span>
+                <h4 className="text-3xl font-black text-text mb-4 leading-tight group-hover:text-primary transition-colors">
+                  {latestSermon?.title || "Finding Peace in Chaos"}
+                </h4>
+                <p className="text-muted/60 font-medium font-manrope mb-8 line-clamp-3">
+                  Join us as we examine spiritual principles and how we can maintain inner tranquility despite external circumstances.
+                </p>
+                <div className="flex items-center gap-6 text-xs font-bold text-muted/40 uppercase">
+                  <span className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" /> {latestSermon?.date || "Oct 15, 2023"}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" /> {latestSermon?.duration || "42 mins"}
                   </span>
                 </div>
               </div>
-            ) : latestSermon ? (
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl aspect-video bg-black group transition-all duration-500 hover:scale-[1.01]">
-                <img 
-                  src={latestSermon.thumbnail} 
-                  alt={latestSermon.title}
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity"
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center text-white">
-                  <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-8 group-hover:scale-110 transition-transform cursor-pointer">
-                    <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2" />
-                  </div>
-                  <span className="text-xs font-bold tracking-[0.2em] uppercase mb-4 text-white/70">Latest Sermon</span>
-                  <h3 className="text-3xl md:text-4xl text-white mb-2">{latestSermon.title}</h3>
-                  <p className="text-white/60 font-medium">with {latestSermon.speaker}</p>
-                </div>
-                <iframe
-                  src={getEmbedUrl(latestSermon.youtube_link)}
-                  className="absolute inset-0 w-full h-full opacity-0 group-active:opacity-100 focus:opacity-100 transition-opacity"
-                  allowFullScreen
-                  title={latestSermon.title}
-                />
-              </div>
-            ) : (
-              <div className="rounded-[2.5rem] bg-white border border-muted/10 aspect-video flex flex-col items-center justify-center p-12 text-center shadow-soft">
-                <Youtube className="w-16 h-16 text-muted/20 mb-8" />
-                <h3 className="mb-4">We are currently offline</h3>
-                <p className="text-muted max-w-sm mb-8 leading-relaxed">
-                  Join us for our next live stream on Sunday at 10:00 AM.
-                </p>
-                <Link href="/sermons">
-                  <Button variant="outline">View Sermon Archive</Button>
-                </Link>
-              </div>
-            )}
-          </div>
+            </motion.div>
 
-          <div className="w-full lg:w-1/3">
-            <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-accent uppercase">
-              Worship With Us
-            </span>
-            <h2 className="mb-8">Join Our Global Congregation</h2>
-            <p className="text-muted text-lg mb-10 leading-relaxed">
-              Experience the power of community from anywhere in the world. Our digital sanctuary is open for all who seek spiritual fellowship.
-            </p>
-            
-            <div className="space-y-4">
-              <Link href={facebookUrl || "https://facebook.com"} target="_blank">
-                <Button variant="primary" className="w-full h-14 gap-3 bg-[#1877F2] hover:bg-[#1877F2]/90 border-none">
-                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                  Watch on Facebook Live
-                </Button>
-              </Link>
-              <Link href={url || "https://youtube.com"} target="_blank">
-                <Button variant="outline" className="w-full h-14 gap-3">
-                  <Youtube className="w-5 h-5 text-red-600" />
-                  Subscribe on YouTube
-                </Button>
-              </Link>
+            {/* Secondary Sermons (Small Cards Stack) */}
+            <div className="lg:col-span-4 flex flex-col gap-6">
+              <motion.div 
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="bg-white/40 backdrop-blur-2xl rounded-[2rem] p-8 flex-1 border border-white/50 group cursor-pointer hover:shadow-xl transition-all"
+              >
+                <div className="flex justify-between items-start mb-6">
+                  <span className="px-3 py-1 bg-orange-400/10 text-orange-600 text-[10px] font-black tracking-widest uppercase rounded-full">
+                    Series: Romans
+                  </span>
+                  <Play className="w-5 h-5 text-primary group-hover:scale-125 transition-transform" />
+                </div>
+                <h5 className="text-xl font-black text-text mb-2 group-hover:text-primary transition-colors">The Power of Grace</h5>
+                <p className="text-sm text-muted/60 font-manrope line-clamp-2">Understanding the unmerited favor detailed in Romans chapter 5.</p>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="bg-white/40 backdrop-blur-2xl rounded-[2rem] p-8 flex-1 border border-white/50 group cursor-pointer hover:shadow-xl transition-all relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-primary" />
+                <div className="flex justify-between items-start mb-6">
+                  <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black tracking-widest uppercase rounded-full">
+                    Guest Speaker
+                  </span>
+                  <Play className="w-5 h-5 text-primary group-hover:scale-125 transition-transform" />
+                </div>
+                <h5 className="text-xl font-black text-text mb-2 group-hover:text-primary transition-colors">Living Purposefully</h5>
+                <p className="text-sm text-muted/60 font-manrope line-clamp-2">Special insights on finding and walking in your unique calling.</p>
+              </motion.div>
             </div>
-            
-            <p className="mt-8 text-sm text-muted italic flex items-center gap-2 justify-center lg:justify-start">
-              <span className="w-2 h-2 rounded-full bg-accent" />
-              Over 500+ people joined us last week
-            </p>
           </div>
         </div>
+
       </div>
     </section>
   )

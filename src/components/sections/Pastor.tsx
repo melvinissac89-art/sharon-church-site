@@ -32,7 +32,7 @@ export default function Pastor({
             <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-primary uppercase bg-primary/5 rounded-full self-center md:self-start">
               Meet Our Senior Pastor
             </span>
-            <h2 className="mb-6 font-serif tracking-tight text-3xl md:text-4xl">{name}</h2>
+            <h2 className="mb-6 tracking-tight text-3xl md:text-4xl">{name}</h2>
             <p className="text-muted text-lg mb-10 leading-relaxed italic last:mb-0">
               &quot;My calling is to shepherd this flock with integrity and to preach the Word in season and out of season.&quot;
             </p>

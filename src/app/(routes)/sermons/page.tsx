@@ -21,7 +21,7 @@ export default function SermonsPage() {
             <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-primary uppercase">
               The Word of God
             </span>
-            <h1 className="mb-6 font-serif">Sermon Archives</h1>
+            <h1 className="mb-6">Sermon Archives</h1>
             <p className="text-muted text-lg">Explore our library of past messages and discover the truth of the Gospel from our teaching team.</p>
           </div>
           

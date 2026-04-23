@@ -7,8 +7,8 @@ export default function Footer() {
     <footer className="bg-surface py-24 border-t border-muted/10">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-24">
         <div className="col-span-1 md:col-span-2">
-          <Link href="/" className="text-2xl font-serif font-bold text-primary flex items-center gap-2 mb-8">
-            <span className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center text-xl font-serif italic">S</span>
+          <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-2 mb-8">
+            <span className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center text-xl italic">S</span>
             Sharon Fellowship
           </Link>
           <p className="text-muted max-w-md mb-8 leading-relaxed">
@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-serif text-lg font-bold mb-6">Explore</h4>
+          <h4 className="text-lg font-bold mb-6">Explore</h4>
           <ul className="space-y-4 text-muted">
             <li><Link href="/sermons" className="hover:text-primary transition-colors">Watch Online</Link></li>
             <li><Link href="/events" className="hover:text-primary transition-colors">Upcoming Events</Link></li>
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-serif text-lg font-bold mb-6">Contact</h4>
+          <h4 className="text-lg font-bold mb-6">Contact</h4>
           <ul className="space-y-4 text-muted">
             <li className="flex gap-3">
               <MapPin className="w-5 h-5 text-accent shrink-0" />
