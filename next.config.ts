@@ -1,24 +1,10 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+const nextConfig = {
+  output: 'export',
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-      },
-    ],
+    unoptimized: true,
   },
-  rewrites: async () => [
-    {
-      source: "/admin",
-      destination: "/admin/index.html",
-    },
-  ],
+  basePath: '/sharon-church-site',
+  assetPrefix: '/sharon-church-site',
 };
 
 export default nextConfig;

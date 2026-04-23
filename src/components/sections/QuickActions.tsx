@@ -18,13 +18,6 @@ const actions = [
     href: "/events"
   },
   {
-    title: "Prayer",
-    description: "Share your requests with our prayer team.",
-    icon: Heart,
-    color: "bg-red-500",
-    href: "#prayer"
-  },
-  {
     title: "Visit Us",
     description: "Find directions and service times.",
     icon: MapPin,

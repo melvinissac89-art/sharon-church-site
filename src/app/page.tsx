@@ -12,7 +12,6 @@ import Sermons from "@/components/sections/Sermons"
 import ServiceTimes from "@/components/sections/ServiceTimes"
 import Events from "@/components/sections/Events"
 import Ministries from "@/components/sections/Ministries"
-import PrayerRequest from "@/components/sections/PrayerRequest"
 import Contact from "@/components/sections/Contact"
 import BibleVerse from "@/components/sections/BibleVerse"
 
@@ -77,7 +76,6 @@ export default function HomePage() {
         
         <Ministries ministries={ministries} />
         
-        <PrayerRequest />
         <Contact />
         <BibleVerse />
       </div>

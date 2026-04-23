@@ -1,0 +1,54 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "live"
+    label: "Live Stream"
+    files:
+      - file: "src/content/settings/live.md"
+        label: "Live Settings"
+        name: "live"
+        format: "yml-frontmatter"
+        fields:
+          - { label: "YouTube Link", name: "youtube_link", widget: "string" }
+          - { label: "Facebook Link", name: "facebook_link", widget: "string" }
+          - { label: "Is Live", name: "is_live", widget: "boolean" }
+
+  - name: "pastor"
+    label: "Pastor Info"
+    files:
+      - file: "src/content/settings/pastor.md"
+        label: "Pastor Details"
+        name: "pastor"
+        format: "yml-frontmatter"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - { label: "Image", name: "image", widget: "image" }
+
+  - name: "events"
+    label: "Events"
+    folder: "src/content/events"
+    create: true
+    format: "yml-frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text" }
+
+  - name: "sermons"
+    label: "Sermons"
+    folder: "src/content/sermons"
+    create: true
+    format: "yml-frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Speaker", name: "speaker", widget: "string" }
+      - { label: "YouTube Link", name: "video", widget: "string" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image" }
