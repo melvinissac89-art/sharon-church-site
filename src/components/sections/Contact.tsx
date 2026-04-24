@@ -1,57 +1,94 @@
+"use client"
+
 import { Button } from "@/components/ui/Button"
-import { MapPin, Phone, Mail, Clock, ExternalLink } from "lucide-react"
+import { MapPin, Phone, ExternalLink } from "lucide-react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
 export default function Contact() {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+
+  // Dynamic horizontal movement based on scroll progress
+  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
+
+  const googleMapsUrl = "https://maps.app.goo.gl/FpfH8Pw2Pr1VK1Pv9"
+
   return (
-    <section className="section-padding bg-surface" id="contact">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-32">
+    <section ref={containerRef} className="section-padding bg-surface overflow-hidden" id="contact">
+      <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
+        <motion.div 
+          style={{ x: xTranslation }}
+          className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center"
+        >
           <div className="w-full lg:w-1/2">
-            <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-accent uppercase">
+            <span className="inline-block px-4 py-1.5 mb-3 text-xs font-black tracking-[0.2em] text-accent uppercase bg-white rounded-full shadow-sm">
               Visit Us
             </span>
-            <h2 className="mb-8">Get in Touch</h2>
-            <p className="text-muted text-lg mb-12 leading-relaxed">
-              Have questions about our services, ministries, or how to get involved? We&apos;re here to help. Reach out to us via phone, email, or visit our office.
+            <h2 className="mb-6 text-4xl md:text-5xl lg:text-7xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-orange-400 bg-clip-text text-transparent pb-1 leading-tight">
+              Get in Touch
+            </h2>
+            <p className="text-muted/70 text-xl mb-8 leading-relaxed text-left font-manrope font-medium">
+              We look forward to welcoming you to our church family. Reach out to us or visit our sanctuary in Kaithaparambu.
             </p>
             
-            <div className="space-y-8">
-              {[
-                { icon: MapPin, title: "Address", content: "123 Church Street, Suite 400, Faith District, State 12345" },
-                { icon: Phone, title: "Phone", content: "(123) 456-7890" },
-                { icon: Mail, title: "Email", content: "info@sharonfellowship.church" },
-                { icon: Clock, title: "Office Hours", content: "Mon - Fri: 9:00 AM - 5:00 PM" }
-              ].map((item, idx) => (
-                <div key={idx} className="flex gap-6 items-start group">
-                  <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-muted/5 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <item.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-1 text-base">{item.title}</h4>
-                    <p className="text-muted leading-relaxed">{item.content}</p>
-                  </div>
+            <div className="space-y-6 mb-10">
+              <div className="flex gap-6 items-start group">
+                <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-muted/5 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                  <MapPin className="w-6 h-6" />
                 </div>
-              ))}
+                <div className="text-left">
+                  <h4 className="font-black mb-1.5 text-lg uppercase tracking-wider text-text/40">Address</h4>
+                  <p className="text-text font-bold leading-relaxed text-xl">
+                    Sharon Fellowship Church Kaithaparambu, <br />
+                    Kaithaparambu, Kerala 691526
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-6 items-start group">
+                <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-muted/5 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                  <Phone className="w-6 h-6" />
+                </div>
+                <div className="text-left">
+                  <h4 className="font-black mb-1.5 text-lg uppercase tracking-wider text-text/40">Phone</h4>
+                  <p className="text-primary font-black leading-relaxed text-2xl tracking-tighter">
+                    +91 99478 76228
+                  </p>
+                </div>
+              </div>
             </div>
             
-            <div className="mt-16 pt-16 border-t border-muted/10 flex flex-col sm:flex-row gap-4">
-              <Button size="lg">Send Message</Button>
-              <Button variant="outline" size="lg" className="gap-2">
-                Directions on Google Maps <ExternalLink className="w-4 h-4" />
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a 
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <Button size="lg" className="w-full gap-3 py-8 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all">
+                  Directions on Google Maps <ExternalLink className="w-5 h-5" />
+                </Button>
+              </a>
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2 min-h-[400px] relative rounded-[32px] overflow-hidden shadow-2xl border-4 border-white">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093643!2d144.95373531532135!3d-37.81627977975124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db5d!2sChurch%20St%2C%20Richmond%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1652134567890!5m2!1sen!2sus"
-              className="absolute inset-0 w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+          <div className="w-full lg:w-1/2 min-h-[500px] relative rounded-[3rem] overflow-hidden shadow-2xl border-[6px] border-white self-stretch group">
+             <img 
+                src="/sharon-church-site/images/gallery/moment13.png"
+                alt="Sharon Fellowship Church Sanctuary"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors duration-700" />
+              <div className="absolute bottom-10 left-10 right-10 bg-white/90 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-2xl transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                <span className="block text-[10px] font-black text-muted/40 uppercase tracking-[0.2em] mb-1">Church Location</span>
+                <span className="text-primary font-black tracking-widest text-lg">Kaithaparambu</span>
+              </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -1,7 +1,8 @@
 "use client"
 
 import { Clock, MapPin, Calendar, Star, Navigation } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
 const sundayServices = [
   { name: "Sunday School", day: "Sunday", time: "08:30 AM to 09:45 AM", sub: "Classrooms" },
@@ -23,34 +24,44 @@ interface ServiceTimesProps {
 }
 
 export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+
+  // Dynamic horizontal movement based on scroll progress
+  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
+
   return (
-    <section id="services" className="py-24 bg-transparent relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
+    <section ref={containerRef} id="services" className="section-padding bg-transparent relative overflow-hidden">
+      <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
+        <motion.div 
+          style={{ x: xTranslation }}
+          className="text-left mb-10"
+        >
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6"
           >
             Service Times & Location
           </motion.h2>
-          <p className="text-xl text-muted/60 max-w-2xl mx-auto font-manrope font-medium">
+          <p className="text-xl text-muted/60 max-w-2xl font-manrope font-medium">
             Join us for worship, fellowship, and prayer throughout the week.
           </p>
-        </div>
+        </motion.div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <motion.div 
+          style={{ x: xTranslation }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-5"
+        >
           
           {/* Sunday Services (col-span-7) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-7 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-12 border border-white/50 shadow-2xl relative overflow-hidden flex flex-col"
-          >
+          <div className="lg:col-span-7 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-8 border border-white/50 shadow-2xl relative overflow-hidden flex flex-col">
             <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#4648d4] to-[#b4136d]" />
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-2xl bg-white text-primary flex items-center justify-center shadow-sm">
@@ -75,7 +86,7 @@ export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
             </div>
 
             {/* Monthly Service Integration */}
-            <div className="mt-10 pt-8 border-t border-muted/10 flex items-center gap-6">
+            <div className="mt-8 pt-6 border-t border-muted/10 flex items-center gap-6">
               <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                 <Star className="w-6 h-6 fill-current" />
               </div>
@@ -84,15 +95,10 @@ export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
                 <p className="text-muted/60 font-medium font-manrope">Fasting Prayer & Holy Communion • <span className="text-text font-bold">Last 3 days</span></p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Weekday Gatherings (col-span-5) */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-5 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-12 border border-white/50 shadow-2xl relative overflow-hidden"
-          >
+          <div className="lg:col-span-5 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-8 border border-white/50 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#b4136d] to-orange-400" />
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-2xl bg-white text-[#b4136d] flex items-center justify-center shadow-sm">
@@ -112,15 +118,10 @@ export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Location Card (col-span-12) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-12 bg-white/40 backdrop-blur-2xl rounded-[3rem] p-8 md:p-12 border border-white/50 shadow-2xl relative overflow-hidden mt-6"
-          >
+          <div className="lg:col-span-12 bg-white/40 backdrop-blur-2xl rounded-[3rem] p-6 md:p-8 border border-white/50 shadow-2xl relative overflow-hidden mt-2">
             <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-orange-400 via-[#4648d4] to-[#b4136d]" />
             <div className="flex flex-col lg:flex-row gap-12 items-center">
               <div className="flex-1">
@@ -137,7 +138,7 @@ export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
                 
                 <div className="flex flex-col sm:flex-row gap-4 items-start">
                   <a 
-                    href="https://www.google.com/maps/search/?api=1&query=Sharon+Fellowship+Church+Kaithaparambu" 
+                    href="https://maps.app.goo.gl/FpfH8Pw2Pr1VK1Pv9" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 bg-primary text-white px-10 py-5 rounded-2xl font-bold hover:shadow-2xl transition-all hover:scale-[1.02] tracking-wide"
@@ -161,9 +162,8 @@ export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
                 <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors" />
               </div>
             </div>
-          </motion.div>
-
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

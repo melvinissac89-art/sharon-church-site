@@ -1,6 +1,4 @@
 import { getCollection, getItem } from "@/lib/markdown"
-import Navbar from "@/components/layout/Navbar"
-import Footer from "@/components/layout/Footer"
 import Hero from "@/components/sections/Hero"
 import LiveStream from "@/components/sections/LiveStream"
 import PhotoReel from "@/components/sections/PhotoReel"
@@ -21,7 +19,6 @@ export default function HomePage() {
   const aboutContent = getItem("pages", "about")
   const pastorContent = getItem("settings", "pastor")
   const serviceContent = getItem("settings", "services")
-  const announcementContent = getItem("settings", "announcements")
   const liveContent = getItem("settings", "live")
   
   const sermons = getCollection("sermons")
@@ -31,55 +28,41 @@ export default function HomePage() {
   const latestSermon = sermons.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <Navbar liveUrl={liveContent?.youtube_link} />
+    <div className="flex-grow">
+      <Hero 
+        title={homeContent?.heroTitle} 
+        subtitle={homeContent?.heroSubtitle} 
+      />
       
-      <div className="flex-grow">
-        <Hero 
-          title={homeContent?.heroTitle} 
-          subtitle={homeContent?.heroSubtitle} 
-        />
-        
-        <NewHere />
+      <NewHere />
 
-        <ServiceTimes 
-          sunday={serviceContent?.sunday} 
-          weekday={serviceContent?.weekday} 
-        />
+      <ServiceTimes 
+        sunday={serviceContent?.sunday} 
+        weekday={serviceContent?.weekday} 
+      />
 
-        <div id="livestream">
-          <LiveStream 
-            isLive={liveContent?.is_live} 
-            url={liveContent?.youtube_link} 
-            facebookUrl={liveContent?.facebook_link}
-            latestSermon={latestSermon}
-          />
-        </div>
-        
-        <PhotoReel />
-        
-        <About 
-          mission={aboutContent?.mission} 
-          vision={aboutContent?.vision} 
-        />
-        
-        <Pastor 
-          name={pastorContent?.name} 
-          bio={pastorContent?.bio} 
-          image={pastorContent?.image} 
-        />
-        
-        <Sermons sermons={sermons} />
-        
-        <Events events={events} />
-        
-        <Ministries ministries={ministries} />
-        
-        <Contact />
-        <BibleVerse />
+      <div id="livestream">
+        <LiveStream />
       </div>
-
-      <Footer />
-    </main>
+      
+      <PhotoReel />
+      
+      <About 
+        mission={aboutContent?.mission} 
+        vision={aboutContent?.vision} 
+      />
+      
+      <Pastor 
+        name={pastorContent?.name} 
+        bio={pastorContent?.bio} 
+        image={pastorContent?.image} 
+      />
+      
+      <Ministries ministries={ministries} />
+      
+      <Contact />
+      <BibleVerse />
+    </div>
   )
 }
+

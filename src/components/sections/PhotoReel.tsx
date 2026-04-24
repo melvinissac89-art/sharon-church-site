@@ -42,12 +42,12 @@ export default function PhotoReel() {
         e.preventDefault()
         // Calculate new offset (horizontal)
         const newX = xOffset.get() - e.deltaY * 1.5
-        
+
         // Bounds check (don't scroll past the ends)
         // 11 cards (550px each) + 10 gaps (32px each) + padding (48px total) = 6418
         const totalWidth = (reelImages.length * 550) + ((reelImages.length - 1) * 32) + 48
         const minX = -(totalWidth - rect.width + 400) // 400px buffer for breathe room
-        
+
         if (newX <= 0 && newX >= minX) {
           xOffset.set(newX)
         }
@@ -59,9 +59,9 @@ export default function PhotoReel() {
   }, [xOffset])
 
   return (
-    <section className="pt-0 pb-24 bg-transparent transition-colors duration-500 overflow-hidden relative">
-      <div className="container mx-auto px-6 mb-16">
-        <motion.div 
+    <section className="pt-0 pb-0 bg-transparent transition-colors duration-500 overflow-hidden relative">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 mb-8">
+        <motion.div
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -78,7 +78,7 @@ export default function PhotoReel() {
       </div>
 
       <div ref={containerRef} className="flex items-center overflow-hidden h-[300px] md:h-[450px] select-none">
-        <motion.div style={{ x }} className="flex gap-8 px-6 pb-12">
+        <motion.div style={{ x }} className="flex gap-8 px-6 pb-4">
           {reelImages.map((src, idx) => (
             <PhotoCard key={idx} src={src} fallback={fallbacks[idx]} index={idx} />
           ))}
@@ -92,7 +92,7 @@ function PhotoCard({ src, fallback, index }: { src: string; fallback: string; in
   const [imgSrc, setImgSrc] = useState(src)
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.05 }}

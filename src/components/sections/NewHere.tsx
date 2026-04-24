@@ -1,31 +1,42 @@
 "use client"
 
-import { Button } from "@/components/ui/Button"
 import Image from "next/image"
-import { CheckCircle2 } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
 export default function NewHere() {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+
+  // Dynamic horizontal movement based on scroll progress
+  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
+
   return (
-    <section className="section-padding bg-surface overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section ref={containerRef} className="section-padding pt-10 bg-surface overflow-hidden">
+      <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
         {/* Header Section */}
         <motion.div 
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ x: xTranslation }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-8"
         >
-          <span className="inline-block px-3 py-1 mb-6 text-xs font-black tracking-[0.2em] text-[#b4136d] uppercase bg-[#b4136d]/5 rounded-full">
+          <span className="inline-block px-3 py-1 mb-3 text-xs font-black tracking-[0.2em] text-[#b4136d] uppercase bg-[#b4136d]/5 rounded-full">
             First Time Visiting?
           </span>
-          <h2 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-rose-500 bg-clip-text text-transparent pb-4">
-            Welcome Home. We&apos;ve Been Waiting for <span className="bg-gradient-to-r from-red-600 to-rose-400 bg-clip-text text-transparent">You.</span>
-          </h2>
+          <div className="text-left">
+            <h2 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-rose-500 bg-clip-text text-transparent pb-1">
+              Welcome Home. <br />
+              We&apos;ve Been Waiting for <span className="bg-gradient-to-r from-red-600 to-rose-400 bg-clip-text text-transparent">YOU.</span>
+            </h2>
+          </div>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-32">
+        <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16">
           <div className="w-full lg:w-1/2 relative">
             <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl aspect-[4/5]">
               <Image 
@@ -40,28 +51,45 @@ export default function NewHere() {
             <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-[80px] z-0" />
           </div>
 
-          <div className="w-full lg:w-1/2 pt-4 max-w-[650px]">
-            <p className="text-muted/70 text-2xl mb-8 leading-relaxed font-manrope font-medium">
-              You are not here by accident. The Lord has brought you, and you are welcome in His presence.
-            </p>
-            
-            <p className="text-muted/70 text-2xl mb-12 leading-relaxed font-manrope font-medium">
-              Whether you are seeking, returning, or simply curious, there is a place for you here. We are a family gathered in Christ, growing in truth, love, and grace.
-            </p>
-
-            <div className="mb-12 pl-8 border-l-4 border-primary/20">
-              <p className="text-xl text-muted/50 italic font-medium leading-relaxed mb-4">
-                &ldquo;Therefore welcome one another, just as Christ also welcomed us, to the glory of God.&rdquo;
+          <motion.div 
+            style={{ x: xTranslation }}
+            className="w-full lg:w-1/2 pt-0 max-w-[700px]"
+          >
+            <div className="space-y-4">
+              <p className="text-muted/70 text-lg leading-relaxed font-manrope font-medium text-left">
+                You are not here by accident. The Lord has brought you, and you are welcome in His presence.
               </p>
-              <p className="text-sm font-black tracking-widest text-[#b4136d] uppercase">
-                Romans 15:7 (LSB)
+              
+              <p className="text-muted/70 text-lg leading-relaxed font-manrope font-medium text-left">
+                Whether you are seeking, returning, or simply curious, there is a place for you here. We are a family gathered in Christ, growing in truth, love, and grace.
+              </p>
+
+              <p className="text-muted/70 text-lg leading-relaxed font-manrope font-medium text-left">
+                Here, the Word of God is taught faithfully, prayer is lifted continually, and lives are being transformed by the power of the Holy Spirit. No matter where you come from or what you carry, you are invited to draw near and experience the peace that comes from knowing Him.
+              </p>
+
+              <p className="text-muted/70 text-lg leading-relaxed font-manrope font-medium text-left">
+                We believe in worship that honors God, fellowship that strengthens one another, and a mission that reaches beyond ourselves to share the gospel with the world.
+              </p>
+
+              <div className="my-6 pl-8 border-l-4 border-primary/20 bg-primary/5 py-4 pr-4 rounded-r-2xl">
+                <p className="text-base text-secondary font-serif italic font-bold leading-relaxed mb-1">
+                  &ldquo;Therefore welcome one another, just as Christ also welcomed us, to the glory of God.&rdquo;
+                </p>
+                <p className="text-[10px] font-black tracking-[0.2em] text-[#b4136d] uppercase">
+                  Romans 15:7 (LSB)
+                </p>
+              </div>
+
+              <p className="text-muted/70 text-lg leading-relaxed font-manrope font-medium text-left">
+                Come with your questions, come with your burdens, come with expectation. The Lord meets those who seek Him.
+              </p>
+
+              <p className="text-xl font-black text-text/80 leading-tight uppercase tracking-tight pt-4 text-left">
+                COME AS YOU ARE, AND ENCOUNTER THE LIVING GOD AMONG HIS PEOPLE.
               </p>
             </div>
-
-            <p className="text-2xl font-black text-text/80 leading-relaxed uppercase tracking-tight">
-              Come as you are, and encounter the living God among His people.
-            </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

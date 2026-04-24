@@ -4,10 +4,20 @@ import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
 import { MapPin, ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 import Image from "next/image"
 
 export default function Events({ events = [] }: { events?: any[] }) {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+
+  // Dynamic horizontal movement based on scroll progress
+  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -22,34 +32,34 @@ export default function Events({ events = [] }: { events?: any[] }) {
   }
 
   return (
-    <section id="events" className="section-padding bg-surface scroll-mt-24">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-          <div className="text-center md:text-left">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-[0.2em] text-primary uppercase bg-white rounded-full shadow-sm px-4">
+    <section ref={containerRef} id="events" className="section-padding bg-surface scroll-mt-24 overflow-hidden">
+      <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
+        <motion.div 
+          style={{ x: xTranslation }}
+          className="flex flex-col md:flex-row justify-between items-end mb-10 gap-8"
+        >
+          <div className="text-left">
+            <div>
+              <span className="inline-block px-4 py-1.5 mb-3 text-xs font-bold tracking-[0.2em] text-primary uppercase bg-white rounded-full shadow-sm">
                 Mark Your Calendar
               </span>
-              <h2 className="tracking-tight text-3xl md:text-4xl lg:text-5xl">Upcoming Events</h2>
-            </motion.div>
+              <h2 className="tracking-tight text-3xl md:text-5xl lg:text-6xl font-extrabold pb-1">Upcoming Events</h2>
+            </div>
           </div>
           <Link href="/events">
             <Button variant="outline" className="group h-12 rounded-xl px-6 font-bold uppercase tracking-widest text-xs">
               See All Events <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-        </div>
+        </motion.div>
 
         <motion.div 
+          style={{ x: xTranslation }}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {events.slice(0, 3).map((event, idx) => (
             <motion.div variants={itemVariants} key={idx} className="h-full">
@@ -70,13 +80,13 @@ export default function Events({ events = [] }: { events?: any[] }) {
                     </span>
                   </div>
                 </div>
-                <div className="p-10 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors leading-tight">{event.title}</h3>
-                  <div className="flex items-center gap-2 text-muted text-sm mb-6 font-bold uppercase tracking-widest">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors leading-tight">{event.title}</h3>
+                  <div className="flex items-center gap-2 text-muted text-sm mb-3 font-bold uppercase tracking-widest">
                     <MapPin className="w-4 h-4 text-primary" />
                     <span>{event.location}</span>
                   </div>
-                  <p className="text-muted leading-relaxed line-clamp-3 mb-8 flex-grow text-lg">
+                  <p className="text-muted leading-relaxed line-clamp-3 mb-4 flex-grow text-lg">
                     {event.body || event.description}
                   </p>
                   <Button variant="ghost" className="w-full group/btn justify-between px-0 hover:bg-transparent text-primary font-bold text-xs tracking-[0.2em] uppercase">

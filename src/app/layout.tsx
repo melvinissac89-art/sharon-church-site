@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import FluidBackground from "@/components/ui/FluidBackground";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import AnnouncementBar from "@/components/layout/AnnouncementBar";
+import { getItem } from "@/lib/markdown";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,6 +39,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const liveContent = getItem("settings", "live")
+
   return (
     <html
       lang="en"
@@ -48,9 +54,13 @@ export default function RootLayout({
           width: '107.52%',
           marginLeft: '-3.76%'
         }}>
+          <AnnouncementBar />
+          <Navbar liveUrl={liveContent?.youtube_link} />
           {children}
+          <Footer />
         </div>
       </body>
     </html>
   );
 }
+

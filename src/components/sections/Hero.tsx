@@ -1,17 +1,24 @@
 "use client"
 import { Button } from "@/components/ui/Button"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Play } from "lucide-react"
 
 export default function Hero({ title, subtitle }: { title?: string; subtitle?: string }) {
+  const { scrollY } = useScroll()
+  
+  // Dynamic horizontal movement based on scroll
+  const xTranslation = useTransform(scrollY, [0, 600], [0, -150])
+  const opacityFade = useTransform(scrollY, [0, 400], [1, 0])
+
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 overflow-hidden bg-transparent">
-      <div className="container mx-auto px-6 relative z-10">
+    <section className="relative min-h-[85vh] flex items-center pt-24 pb-12 overflow-hidden bg-transparent">
+      <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
         <motion.div
+          style={{ x: xTranslation, opacity: opacityFade }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-2xl"
+          className="max-w-3xl"
         >
           {/* Eyebrow */}
           <motion.span 
@@ -52,7 +59,7 @@ export default function Hero({ title, subtitle }: { title?: string; subtitle?: s
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="text-xl text-muted/60 mb-10 leading-relaxed font-manrope"
+            className="text-xl text-muted/60 mb-6 leading-relaxed font-manrope"
           >
             Join us in worship, word, and fellowship
           </motion.p>
