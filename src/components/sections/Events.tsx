@@ -4,40 +4,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
 import { MapPin, ArrowRight } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
 import Image from "next/image"
 
 export default function Events({ events = [] }: { events?: any[] }) {
-  const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-
-  // Dynamic horizontal movement based on scroll progress
-  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  }
-
   return (
-    <section ref={containerRef} id="events" className="section-padding bg-surface scroll-mt-24 overflow-hidden">
+    <section id="events" className="section-padding bg-surface scroll-mt-24 overflow-hidden">
       <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
-        <motion.div 
-          style={{ x: xTranslation }}
-          className="flex flex-col md:flex-row justify-between items-end mb-10 gap-8"
-        >
+        <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-8">
           <div className="text-left">
             <div>
               <span className="inline-block px-4 py-1.5 mb-3 text-xs font-bold tracking-[0.2em] text-primary uppercase bg-white rounded-full shadow-sm">
@@ -51,18 +24,11 @@ export default function Events({ events = [] }: { events?: any[] }) {
               See All Events <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          style={{ x: xTranslation }}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {events.slice(0, 3).map((event, idx) => (
-            <motion.div variants={itemVariants} key={idx} className="h-full">
+            <div key={idx} className="h-full">
               <Card className="overflow-hidden group h-full flex flex-col hover:shadow-2xl transition-all duration-500 rounded-[2.5rem] border-none bg-white shadow-soft">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image 
@@ -94,10 +60,11 @@ export default function Events({ events = [] }: { events?: any[] }) {
                   </Button>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
+

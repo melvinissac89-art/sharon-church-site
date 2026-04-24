@@ -216,13 +216,6 @@ export default async function MinistryPage({ params }: { params: Promise<{ slug:
             </Link>
           </div>
 
-          <div className="bg-surface rounded-[2.5rem] p-10 border border-muted/5">
-            <h3 className="text-xl font-bold mb-6">Need More Info?</h3>
-            <p className="text-muted mb-6">Contact our pastoral team for any specific questions about our {ministry.title.toLowerCase()} programs.</p>
-            <a href="mailto:contact@sharonchurch.com" className="text-primary font-bold hover:underline">
-              Email Us →
-            </a>
-          </div>
         </div>
       </section>
     </div>

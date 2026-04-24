@@ -44,6 +44,8 @@ export default function HomePage() {
       <div id="livestream">
         <LiveStream />
       </div>
+
+      <Sermons sermons={sermons} />
       
       <PhotoReel />
       
@@ -60,8 +62,8 @@ export default function HomePage() {
       
       <Ministries ministries={ministries} />
       
-      <Contact />
       <BibleVerse />
+      <Contact />
     </div>
   )
 }

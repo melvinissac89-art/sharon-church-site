@@ -2,28 +2,14 @@
 
 import { Button } from "@/components/ui/Button"
 import { MapPin, Phone, ExternalLink } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
 
 export default function Contact() {
-  const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-
-  // Dynamic horizontal movement based on scroll progress
-  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
-
   const googleMapsUrl = "https://maps.app.goo.gl/FpfH8Pw2Pr1VK1Pv9"
 
   return (
-    <section ref={containerRef} className="section-padding bg-surface overflow-hidden" id="contact">
+    <section className="section-padding bg-transparent overflow-hidden" id="contact">
       <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
-        <motion.div 
-          style={{ x: xTranslation }}
-          className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center"
-        >
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
           <div className="w-full lg:w-1/2">
             <span className="inline-block px-4 py-1.5 mb-3 text-xs font-black tracking-[0.2em] text-accent uppercase bg-white rounded-full shadow-sm">
               Visit Us
@@ -58,6 +44,15 @@ export default function Contact() {
                   <p className="text-primary font-black leading-relaxed text-2xl tracking-tighter">
                     +91 99478 76228
                   </p>
+                  <a
+                    href="https://wa.me/919947876228?text=Hello%20Pastor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-2 text-[#25D366] font-bold hover:underline group/wa"
+                  >
+                    <span className="text-xl">💬</span>
+                    Message on WhatsApp
+                  </a>
                 </div>
               </div>
             </div>
@@ -88,8 +83,9 @@ export default function Contact() {
                 <span className="text-primary font-black tracking-widest text-lg">Kaithaparambu</span>
               </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
+

@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, useSpring, useMotionValue } from "framer-motion"
-import { useRef, useEffect, useState } from "react"
+import { useState, useRef, useEffect } from "react"
+import { motion, useMotionValue, animate } from "framer-motion"
 import Image from "next/image"
 
 const basePath = "/sharon-church-site"
@@ -24,61 +24,81 @@ const fallbacks = [
 
 export default function PhotoReel() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const xOffset = useMotionValue(0)
-  const x = useSpring(xOffset, { stiffness: 100, damping: 20, restDelta: 0.001 })
+  const contentRef = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const [constraints, setConstraints] = useState({ left: 0, right: 0 })
 
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const handleWheel = (e: WheelEvent) => {
-      const rect = container.getBoundingClientRect()
-      if (
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
-      ) {
-        e.preventDefault()
-        // Calculate new offset (horizontal)
-        const newX = xOffset.get() - e.deltaY * 1.5
-
-        // Bounds check (don't scroll past the ends)
-        // 11 cards (550px each) + 10 gaps (32px each) + padding (48px total) = 6418
-        const totalWidth = (reelImages.length * 550) + ((reelImages.length - 1) * 32) + 48
-        const minX = -(totalWidth - rect.width + 400) // 400px buffer for breathe room
-
-        if (newX <= 0 && newX >= minX) {
-          xOffset.set(newX)
-        }
+    const updateConstraints = () => {
+      if (containerRef.current && contentRef.current) {
+        const containerWidth = containerRef.current.offsetWidth
+        const contentWidth = contentRef.current.scrollWidth
+        setConstraints({ 
+          left: Math.min(0, -(contentWidth - containerWidth + 64)), 
+          right: 0 
+        })
       }
     }
+    
+    updateConstraints()
+    window.addEventListener("resize", updateConstraints)
+    const timer = setTimeout(updateConstraints, 500)
+    return () => {
+      window.removeEventListener("resize", updateConstraints)
+      clearTimeout(timer)
+    }
+  }, [])
 
-    window.addEventListener("wheel", handleWheel, { passive: false })
-    return () => window.removeEventListener("wheel", handleWheel)
-  }, [xOffset])
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 1) return
+      e.preventDefault()
+      
+      const newX = x.get() - e.deltaY * 5.0
+      const clampedX = Math.max(constraints.left, Math.min(constraints.right, newX))
+      
+      // Use animate for smooth springy wheel interaction
+      animate(x, clampedX, { 
+        type: "spring", 
+        stiffness: 150, 
+        damping: 30,
+        mass: 0.5,
+        restDelta: 0.01
+      })
+    }
+
+    el.addEventListener("wheel", onWheel, { passive: false })
+    return () => el.removeEventListener("wheel", onWheel)
+  }, [x, constraints])
 
   return (
-    <section className="pt-0 pb-0 bg-transparent transition-colors duration-500 overflow-hidden relative">
+    <section className="pt-0 pb-12 bg-transparent overflow-hidden relative">
       <div className="max-w-6xl mx-auto px-4 md:px-6 mb-8">
-        <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          className="max-w-2xl"
-        >
+        <div className="max-w-2xl">
           <span className="inline-block px-3 py-1 mb-6 text-xs font-black tracking-[0.2em] text-[#b4136d] uppercase bg-[#b4136d]/5 rounded-full">
             Our Gallery
           </span>
           <h2 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-[#4648d4] to-[#b4136d] bg-clip-text text-transparent">
             Church Family Moments
           </h2>
-        </motion.div>
+        </div>
       </div>
 
-      <div ref={containerRef} className="flex items-center overflow-hidden h-[300px] md:h-[450px] select-none">
-        <motion.div style={{ x }} className="flex gap-8 px-6 pb-4">
+      <div 
+        ref={containerRef}
+        className="flex items-center overflow-hidden h-[300px] md:h-[450px] cursor-grab active:cursor-grabbing"
+      >
+        <motion.div 
+          ref={contentRef}
+          style={{ x }}
+          drag="x"
+          dragConstraints={constraints}
+          dragElastic={0.15}
+          className="flex gap-8 px-6 pb-4"
+        >
           {reelImages.map((src, idx) => (
             <PhotoCard key={idx} src={src} fallback={fallbacks[idx]} index={idx} />
           ))}
@@ -88,15 +108,12 @@ export default function PhotoReel() {
   )
 }
 
+
 function PhotoCard({ src, fallback, index }: { src: string; fallback: string; index: number }) {
   const [imgSrc, setImgSrc] = useState(src)
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ delay: index * 0.05 }}
-      whileHover={{ scale: 1.02 }}
+    <div
       className="relative w-[280px] h-[180px] md:w-[550px] md:h-[340px] rounded-[3rem] overflow-hidden shadow-2xl border border-white/20 transition-all duration-700 bg-white/5 flex-shrink-0"
     >
       <Image
@@ -108,8 +125,10 @@ function PhotoCard({ src, fallback, index }: { src: string; fallback: string; in
         onError={() => setImgSrc(fallback)}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity" />
-    </motion.div>
+    </div>
   )
 }
+
+
 
 

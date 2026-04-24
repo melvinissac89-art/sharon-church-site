@@ -2,21 +2,9 @@
 
 import { Card } from "@/components/ui/Card"
 import { Users, Music, Baby, Book, Globe, Lightbulb, ArrowRight } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
 import Link from "next/link"
 
 export default function Ministries({ ministries = [] }: { ministries?: any[] }) {
-  const containerRef = useRef<HTMLElement>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-
-  // Dynamic horizontal movement based on scroll progress
-  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
-
   const defaultIcons: { [key: string]: any } = {
     children: Baby,
     youth: Users,
@@ -64,50 +52,25 @@ export default function Ministries({ ministries = [] }: { ministries?: any[] }) 
 
   const ids = ["children", "youth", "worship", "missions", "bible", "creative"]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0 }
-  }
-
   return (
-    <section ref={containerRef} id="ministries" className="section-padding py-16 bg-surface overflow-hidden relative">
+    <section id="ministries" className="section-padding pt-16 pb-8 bg-transparent overflow-hidden relative">
       <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
-        <motion.div
-          style={{ x: xTranslation }}
-          className="text-left max-w-2xl mb-12"
-        >
+        <div className="text-left max-w-2xl mb-12">
           <span className="inline-block px-4 py-1.5 mb-3 text-xs font-black tracking-[0.2em] text-primary uppercase bg-white rounded-full shadow-sm">
             Our Ministries
           </span>
-          <h2 className="mb-6 text-3xl md:text-4xl lg:text-5xl tracking-tight font-black leading-tight">A Place for Everyone to Serve</h2>
+          <h2 className="mb-6 text-5xl md:text-7xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-orange-400 bg-clip-text text-transparent pb-1 leading-tight">A Place for Everyone to Serve</h2>
           <p className="text-muted/70 leading-relaxed text-lg font-manrope font-medium text-left">
             Find your community where you can grow, serve, and find your purpose within our church family.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          style={{ x: xTranslation }}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {ids.map((id, idx) => {
             const data = contentMap[id]
             const Icon = defaultIcons[id]
             return (
-              <motion.div variants={itemVariants} key={id} className="h-full">
+              <div key={id} className="h-full">
                 <Link 
                   href={`/ministries/${routeMap[id]}`} 
                   scroll={true}
@@ -128,12 +91,13 @@ export default function Ministries({ ministries = [] }: { ministries?: any[] }) 
                     </div>
                   </Card>
                 </Link>
-              </motion.div>
+              </div>
             )
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
+
 

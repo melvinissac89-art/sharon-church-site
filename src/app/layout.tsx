@@ -34,6 +34,8 @@ export const metadata: Metadata = {
   }
 };
 
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -48,17 +50,15 @@ export default function RootLayout({
     >
       <body className="font-manrope text-text bg-background min-h-screen overflow-x-hidden">
         <FluidBackground />
-        <div style={{ 
-          transform: 'scale(0.93)', 
-          transformOrigin: 'top center',
-          width: '107.52%',
-          marginLeft: '-3.76%'
-        }}>
-          <AnnouncementBar />
-          <Navbar liveUrl={liveContent?.youtube_link} />
-          {children}
+        <AnnouncementBar />
+        <Navbar liveUrl={liveContent?.youtube_link} />
+        <div className="relative w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col gap-0">
+          <div className="flex-grow">
+            {children}
+          </div>
           <Footer />
         </div>
+        <WhatsAppButton />
       </body>
     </html>
   );

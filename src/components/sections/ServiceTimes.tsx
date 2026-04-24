@@ -1,8 +1,6 @@
 "use client"
 
 import { Clock, MapPin, Calendar, Star, Navigation } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
 
 const sundayServices = [
   { name: "Sunday School", day: "Sunday", time: "08:30 AM to 09:45 AM", sub: "Classrooms" },
@@ -24,41 +22,21 @@ interface ServiceTimesProps {
 }
 
 export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
-  const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-
-  // Dynamic horizontal movement based on scroll progress
-  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
-
   return (
-    <section ref={containerRef} id="services" className="section-padding bg-transparent relative overflow-hidden">
+    <section id="services" className="section-padding bg-transparent relative overflow-hidden">
       <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
         {/* Header */}
-        <motion.div 
-          style={{ x: xTranslation }}
-          className="text-left mb-10"
-        >
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6"
-          >
+        <div className="text-left mb-10">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
             Service Times & Location
-          </motion.h2>
+          </h2>
           <p className="text-xl text-muted/60 max-w-2xl font-manrope font-medium">
             Join us for worship, fellowship, and prayer throughout the week.
           </p>
-        </motion.div>
+        </div>
 
         {/* Bento Grid Layout */}
-        <motion.div 
-          style={{ x: xTranslation }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-5"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           
           {/* Sunday Services (col-span-7) */}
           <div className="lg:col-span-7 bg-white/40 backdrop-blur-2xl rounded-[2.5rem] p-6 md:p-8 border border-white/50 shadow-2xl relative overflow-hidden flex flex-col">
@@ -163,8 +141,9 @@ export default function ServiceTimes({ sunday, weekday }: ServiceTimesProps) {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
+

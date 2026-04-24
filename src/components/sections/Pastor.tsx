@@ -1,7 +1,5 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
 import Image from "next/image"
 import { Facebook } from "@/components/ui/SocialIcons"
 
@@ -10,33 +8,17 @@ export default function Pastor({
   bio = "Pastor Johnson has been leading Sharon Fellowship Church with a passion for teaching the Word and building strong, faithful communities.",
   image = "/sharon-church-site/images/gallery/moment11.png"
 }: { name?: string, bio?: string, image?: string }) {
-  const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  })
-
-  // Dynamic horizontal movement based on scroll progress
-  const xTranslation = useTransform(scrollYProgress, [0, 0.4, 1], [80, 0, -100])
-
   return (
-    <section ref={containerRef} id="pastor" className="section-padding bg-surface overflow-hidden">
+    <section id="pastor" className="section-padding bg-surface overflow-hidden">
       <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
         {/* Section Header */}
-        <motion.div 
-          style={{ x: xTranslation }}
-          className="text-left mb-8"
-        >
+        <div className="text-left mb-8">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
             Meet Our Senior Pastor
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          style={{ x: xTranslation }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+        <div 
           className="bg-white rounded-[32px] overflow-hidden shadow-soft flex flex-col md:flex-row items-stretch border border-muted/5 hover:shadow-2xl transition-all duration-500"
         >
           <div className="w-full md:w-1/2 relative min-h-[400px] overflow-hidden group">
@@ -63,20 +45,20 @@ export default function Pastor({
             <div className="flex flex-col md:flex-row items-center gap-6 justify-start">
               <span className="text-sm font-bold uppercase tracking-wider text-text">Follow:</span>
               <div className="flex space-x-6 text-muted">
-                <motion.a 
-                  whileHover={{ y: -3, color: "var(--color-primary)" }} 
+                <a 
                   href="https://www.facebook.com/share/1B3YFanJaj/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors"
+                  className="transition-colors hover:text-primary hover:-translate-y-1 transform transition-transform duration-300"
                 >
                   <Facebook className="w-6 h-6" />
-                </motion.a>
+                </a>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
+

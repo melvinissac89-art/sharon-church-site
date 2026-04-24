@@ -3,7 +3,7 @@ import VerseOfTheHour from "@/components/VerseOfTheHour"
 
 export default function BibleVerse() {
   return (
-    <section className="section-padding bg-surface text-text relative overflow-hidden py-32 border-y border-muted/5">
+    <section className="section-padding pt-8 pb-32 bg-transparent text-text relative overflow-hidden border-y border-muted/5">
       {/* Decorative background - Very subtle for light mode */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-full opacity-[0.03] pointer-events-none">
         <Quote className="w-full h-full" />

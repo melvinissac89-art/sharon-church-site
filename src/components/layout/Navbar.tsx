@@ -19,11 +19,11 @@ export default function Navbar({ liveUrl = "/#livestream" }: { liveUrl?: string 
   }, [])
 
   const navLinks = [
-    { name: "Watch", href: "/sermons" },
+    { name: "Home", href: "/#" },
     { name: "Ministries", href: "/ministries" },
-    { name: "Events", href: "/events" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "Sermon", href: "/#sermons" },
+    { name: "About", href: "/#about" },
+    { name: "Contact", href: "/#contact" },
   ]
 
   const isPlaceholder = liveUrl.includes("placeholder")
@@ -34,12 +34,13 @@ export default function Navbar({ liveUrl = "/#livestream" }: { liveUrl?: string 
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/80 backdrop-blur-xl py-3 shadow-xl' : 'bg-white/30 backdrop-blur-md py-5 border-b border-white/10'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-3 group transition-transform hover:scale-[1.02]">
-          <motion.span 
-            whileHover={{ rotate: [-10, 10, 0] }}
-            className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center text-xl italic shadow-lg shadow-primary/20"
-          >
-            S
-          </motion.span>
+          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-primary/20 bg-white flex items-center justify-center border border-primary/10">
+            <img 
+              src="/sharon-church-site/images/gallery/logo.png" 
+              alt="Sharon Fellowship Church Logo" 
+              className="w-full h-full object-contain"
+            />
+          </div>
           <span className="tracking-tight text-text">Sharon Fellowship</span>
         </Link>
 

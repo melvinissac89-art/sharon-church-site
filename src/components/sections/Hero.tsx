@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Play } from "lucide-react"
@@ -72,27 +73,16 @@ export default function Hero({ title, subtitle }: { title?: string; subtitle?: s
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row items-center gap-4"
           >
-            <Button size="lg" className="w-full sm:w-auto px-8 rounded-full shadow-lg shadow-primary/20">
-              <Play className="w-5 h-5 mr-2 fill-current" />
-              Watch Live
-            </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto px-8 rounded-full border-2">
-              Facebook Live
-            </Button>
+            <Link href="#livestream">
+              <Button size="lg" className="w-full sm:w-auto px-8 rounded-full shadow-lg shadow-primary/20">
+                <Play className="w-5 h-5 mr-2 fill-current" />
+                Watch Live
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Modern scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-10 flex items-center gap-4"
-      >
-        <div className="w-12 h-px bg-muted" />
-        <span className="text-[10px] uppercase tracking-[0.3em] text-muted font-bold">Scroll to Explore</span>
-      </motion.div>
     </section>
   )
 }
+
