@@ -5,132 +5,117 @@ import { motion } from "framer-motion"
 
 export default function ConventionSection() {
   return (
-    <section className="py-6 md:py-10 px-2 md:px-6 relative overflow-hidden bg-transparent">
-      <div className="w-full max-w-[1300px] mx-auto relative z-10">
-        
-        {/* Main Container */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
+    <section className="section-padding bg-transparent overflow-hidden min-h-[70vh] flex items-center justify-center">
+      <div className="w-full px-2 md:px-4 lg:px-6 relative z-10 py-1">
+
+        {/* Site Style Header - Ultra Compact */}
+        <div className="mb-4">
+          <span className="inline-block px-2 py-0.5 mb-1 text-[10px] font-black tracking-[0.2em] text-[#b4136d] uppercase bg-[#b4136d]/5 rounded-full">
+            Special Event
+          </span>
+          <h2 className="text-xl md:text-2xl font-black bg-gradient-to-r from-[#4648d4] via-[#b4136d] to-rose-500 bg-clip-text text-transparent">
+            Upcoming Convention & Music Feast
+          </h2>
+        </div>
+
+        {/* Main Section Frame */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="relative rounded-[2.5rem] overflow-hidden bg-white/40 backdrop-blur-3xl border border-white/50 shadow-2xl p-4 md:p-6 lg:p-8"
+          className="relative rounded-[2rem] overflow-hidden bg-white/30 backdrop-blur-3xl border border-white/50 shadow-2xl p-4 md:p-5 lg:p-6"
         >
-          {/* Accent Gradient Line */}
-          <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-purple-500 to-pink-500" />
+          {/* Accent Line */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500" />
 
-          <div className="flex flex-col lg:flex-row gap-6 lg:items-stretch">
-            
-            {/* Photo Side (Left) - Enlarged */}
-            <div className="w-full lg:w-[55%] relative group shrink-0">
-              <div className="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl aspect-[16/10] lg:aspect-auto lg:h-full border border-white/20">
-                <img 
-                  src="/sharon-church-site/images/gallery/Convention.jpeg" 
-                  alt="Convention Advertisement" 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+          {/* Two-Column Layout */}
+          <div className="flex flex-col lg:flex-row gap-0 lg:items-stretch">
+
+            {/* Photo Side - with anchored Date */}
+            <div className="w-full lg:w-[52%] flex items-center gap-2 lg:gap-4 shrink-0">
+              <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl aspect-[3/4] max-h-[500px] border border-white/30 bg-white/10 shrink-0">
+                <img
+                  src="/sharon-church-site/images/gallery/Convention.jpeg"
+                  alt="Convention Advertisement"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
               </div>
-              
-              {/* Decorative Blur Elements */}
-              <div className="absolute -top-12 -left-12 w-48 h-48 bg-primary/10 rounded-full blur-[60px] z-0" />
-              <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] z-0" />
 
-              {/* Floating Date Badge - Compact */}
-              <div className="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white z-20 transform hover:-translate-y-1 transition-transform cursor-default hidden md:block">
-                <p className="text-3xl font-black text-primary leading-none mb-0.5">20</p>
-                <p className="text-[10px] font-black text-muted/60 uppercase tracking-widest">MAY 2026</p>
+              {/* Date Indicator - Upright & Static */}
+              <div className="hidden lg:flex flex-col items-center justify-center shrink-0 z-20">
+                <div className="flex flex-col items-center">
+                  <span className="text-xl md:text-2xl font-black text-primary/30 tracking-[0.2em] mb-[-10px] uppercase">MAY</span>
+                  <span className="text-5xl md:text-6xl font-black bg-gradient-to-br from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent leading-none">20</span>
+                  <div className="w-6 h-0.5 bg-primary/20 rounded-full mt-2" />
+                </div>
               </div>
             </div>
 
-            {/* Content Side (Right) - Tightened */}
-            <div className="flex-1 flex flex-col justify-between py-2">
-              
+            {/* Content Side - Right Column */}
+            <div className="flex-1 flex flex-col justify-between py-1 pl-4 lg:pl-8">
+
+              {/* Top Section */}
               <div className="space-y-4">
-                {/* Header */}
-                <div>
-                  <motion.span 
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest mb-4"
-                  >
-                    Special Event
-                  </motion.span>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-text leading-tight mb-2">
+                <div className="space-y-1">
+                  <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-primary leading-tight">
                     ശാരോൻ ഫെല്ലോഷിപ്പ് ചർച്ച്
-                  </h2>
-                  <p className="text-lg md:text-xl font-bold text-muted/60 font-manrope">
-                    കൈതപ്പനത്ത് സഭയുടെ ആഭിമുഖ്യത്തിൽ
+                  </h3>
+                  <p className="text-sm md:text-base font-bold text-muted/60 font-manrope">
+                    കൈതപ്പറമ്പ് സഭയുടെ ആഭിമുഖ്യത്തിൽ
                   </p>
                 </div>
 
-                {/* Main Title - Reduced Size */}
-                <div>
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-primary leading-snug">
-                    ഏകദിന സുവിശേഷ യോഗവും <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
-                      സംഗീത വിരുന്നും
-                    </span>
-                  </h3>
+                <div className="h-0.5 bg-primary/10 w-full" />
+
+                <h4 className="text-xl md:text-2xl font-black leading-snug">
+                  <span className="text-primary">ഏകദിന സുവിശേഷ യോഗവും</span> <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600 uppercase tracking-tighter">
+                    സംഗീത വിരുന്നും
+                  </span>
+                </h4>
+              </div>
+
+              {/* Middle Section - Logistics */}
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-primary/5 flex items-center justify-center text-primary shrink-0">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <p className="text-sm md:text-base font-bold text-text">2026 മേയ് 20, ബുധനാഴ്ച</p>
                 </div>
-
-                {/* Quick Details List - Compact */}
-                <div className="space-y-4 pt-2">
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0 text-primary border border-primary/5">
-                      <Calendar className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-black text-muted/40 uppercase tracking-widest">DATE & DAY</p>
-                      <p className="text-lg font-bold text-text">2026 മേയ് 20, ബുധനാഴ്ച</p>
-                    </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-primary/5 flex items-center justify-center text-primary shrink-0">
+                    <Clock className="w-4 h-4" />
                   </div>
-
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0 text-primary border border-primary/5">
-                      <Clock className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-black text-muted/40 uppercase tracking-widest">TIME</p>
-                      <p className="text-lg font-bold text-text">വൈകിട്ട് 5:30 - രാത്രി 9:00</p>
-                    </div>
+                  <p className="text-sm md:text-base font-bold text-text">5:30 pm - 9:00 pm</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-primary/5 flex items-center justify-center text-primary shrink-0">
+                    <MapPin className="w-4 h-4" />
                   </div>
-
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0 text-primary border border-primary/5">
-                      <MapPin className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-black text-muted/40 uppercase tracking-widest">LOCATION</p>
-                      <p className="text-lg font-bold text-text">അമ്മോനത്ത് ഗ്രൗണ്ടിൽ</p>
-                    </div>
-                  </div>
+                  <p className="text-sm md:text-base font-bold text-text">അമ്മോണത് ഗ്രൗണ്ടിൽ, കൈതപ്പറമ്പ്</p>
                 </div>
               </div>
 
-              {/* Guest & Contact Bottom Section */}
-              <div className="mt-6 space-y-4">
-                <div className="grid grid-cols-2 gap-4 py-4 border-y border-muted/5">
-                  <div className="flex items-center gap-3">
-                    <Mic2 className="w-5 h-5 text-primary opacity-50" />
-                    <p className="text-sm font-bold text-text leading-tight">പാസ്റ്റർ. ജോയി പായ്ക്കൽ</p>
+              {/* Bottom Section - Guests & Contact */}
+              <div className="space-y-4">
+                <div className="flex flex-wrap gap-x-6 gap-y-2 py-2">
+                  <div className="flex items-center gap-2">
+                    <Mic2 className="w-4 h-4 text-primary opacity-60" />
+                    <p className="text-sm font-black text-text/80">ജോയി പാറയ്ക്കൽ അങ്കമാലി</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Music className="w-5 h-5 text-purple-600 opacity-50" />
-                    <p className="text-sm font-bold text-text leading-tight">ശാരോൻ ക്വയർ</p>
+                  <div className="flex items-center gap-2">
+                    <Music className="w-4 h-4 text-purple-600 opacity-60" />
+                    <p className="text-sm font-black text-text/80">ശാരോൻ ക്വയർ</p>
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/40 p-4 rounded-2xl border border-white/60">
-                  <span className="font-bold text-sm text-text">ഏവർക്കും സ്വാഗതം...</span>
+                <div className="bg-primary/10 rounded-2xl p-4 flex items-center justify-between backdrop-blur-sm border border-primary/5">
+                  <span className="text-[11px] font-black text-primary/70 uppercase tracking-widest">ഏവർക്കും സ്വാഗതം</span>
                   <div className="flex gap-4">
-                    <a href="tel:+919947876228" className="text-primary text-sm font-black hover:scale-105 transition-transform">
-                      +91 99478 76228
-                    </a>
-                    <a href="tel:+919447196176" className="text-primary text-sm font-black hover:scale-105 transition-transform">
-                      +91 94471 96176
-                    </a>
+                    <a href="tel:+919947876228" className="text-sm font-black text-primary">9947876228</a>
+                    <a href="tel:+919447196176" className="text-sm font-black text-primary">9447196176</a>
                   </div>
                 </div>
               </div>

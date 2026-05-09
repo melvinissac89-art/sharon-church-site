@@ -6,67 +6,67 @@ import { Play } from "lucide-react"
 
 export default function Hero({ title, subtitle }: { title?: string; subtitle?: string }) {
   const { scrollY } = useScroll()
-  
+
   // Dynamic horizontal movement based on scroll
   const xTranslation = useTransform(scrollY, [0, 600], [0, -150])
   const opacityFade = useTransform(scrollY, [0, 400], [1, 0])
 
   return (
-    <section className="relative min-h-[85vh] flex items-center pt-24 pb-12 overflow-hidden bg-transparent">
-      <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
+    <section className="relative min-h-[60vh] flex items-center pt-16 pb-8 overflow-hidden bg-transparent">
+      <div className="w-full px-2 md:px-6 lg:px-8 relative z-10">
         <motion.div
           style={{ x: xTranslation, opacity: opacityFade }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-3xl"
+          className="w-full"
         >
           {/* Eyebrow */}
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
             className="inline-block mb-1 text-L font-bold tracking-[0.5em] text-primary uppercase"
           >
-            WELCOME TO
+            സ്വാഗതം
           </motion.span>
 
           {/* Heading */}
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
             className="mb-2 text-[48px] md:text-[72px]"
           >
-            Sharon Fellowship Church
+            ശാരോൻ ഫെല്ലോഷിപ്പ് ചർച്ച്
           </motion.h1>
 
           {/* Subheading */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
             className="mb-4 text-2xl md:text-3xl font-manrope font-bold text-muted/80"
           >
-            Kaithaparambu
+            കൈതപ്പറമ്പ്
           </motion.div>
 
           {/* Supporting line */}
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
             className="text-xl text-muted/60 mb-6 leading-relaxed font-manrope"
           >
-            Join us in worship, word, and fellowship
+            ആരാധനയിലും വചനത്തിലും കൂട്ടായ്മയിലും നമുക്ക് ഒത്തുചേരാം
           </motion.p>
 
           {/* Buttons */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}

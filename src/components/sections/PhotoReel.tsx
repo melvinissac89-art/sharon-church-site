@@ -76,8 +76,8 @@ export default function PhotoReel() {
 
   return (
     <section className="pt-0 pb-12 bg-transparent overflow-hidden relative">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 mb-8">
-        <div className="max-w-2xl">
+      <div className="w-full mx-auto px-4 md:px-6 mb-8">
+        <div className="w-full">
           <span className="inline-block px-3 py-1 mb-6 text-xs font-black tracking-[0.2em] text-[#b4136d] uppercase bg-[#b4136d]/5 rounded-full">
             Our Gallery
           </span>

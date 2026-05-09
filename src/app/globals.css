@@ -38,24 +38,24 @@
   :root {
     --background: #faf8ff;
     --foreground: #131b2e;
-    --section-padding-y: 64px;
-    --section-gap: 32px;
-    --content-gap: 16px;
+    --section-padding-y: 10px;
+    --section-gap: 8px;
+    --content-gap: 4px;
 
     @media (max-width: 1024px) {
-      --section-padding-y: 40px;
-      --section-gap: 24px;
+      --section-padding-y: 8px;
+      --section-gap: 6px;
     }
     
     @media (max-width: 768px) {
-      --section-padding-y: 28px;
-      --section-gap: 20px;
+      --section-padding-y: 4px;
+      --section-gap: 4px;
     }
   }
 
   body {
-    @apply font-sans bg-background text-text antialiased;
-    line-height: 1.6;
+    @apply font-sans bg-background text-text antialiased text-xs md:text-sm;
+    line-height: 1.4;
     overflow-x: hidden;
   }
 
@@ -74,17 +74,17 @@
   }
 
   h1 {
-    @apply text-[48px] md:text-[72px];
+    @apply text-[28px] md:text-[42px];
   }
 
   h2 {
-    @apply text-3xl md:text-5xl lg:text-[44px] leading-tight;
+    @apply text-xl md:text-2xl lg:text-3xl leading-tight;
   }
 }
 
 @layer utilities {
   .section-padding {
-    @apply py-[var(--section-padding-y)] px-4 md:px-6 max-w-6xl mx-auto;
+    @apply py-[var(--section-padding-y)] px-1 md:px-2 lg:px-2 w-full mx-0;
   }
   
   .glass {
