@@ -11,6 +11,7 @@ import Events from "@/components/sections/Events"
 import Ministries from "@/components/sections/Ministries"
 import Contact from "@/components/sections/Contact"
 import BibleVerse from "@/components/sections/BibleVerse"
+import ConventionSection from "@/components/sections/ConventionSection"
 
 export const revalidate = 60
 
@@ -35,6 +36,8 @@ export default function HomePage() {
       />
       
       <NewHere />
+
+      <ConventionSection />
 
       <ServiceTimes 
         sunday={serviceContent?.sunday} 
