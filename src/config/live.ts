@@ -1,5 +1,5 @@
 export const LIVE = {
   isLive: true,
-  youtubeUrl: "https://www.youtube.com/live/wDSIjFg_jRM?si=y-7IdqCWPoczP9ei",
+  youtubeUrl: "https://www.youtube.com/live/x2wKqLJLDCI?si=gelyamioZaC9C9Qz",
   nextLive: "Sunday 10:00 AM",
 };
